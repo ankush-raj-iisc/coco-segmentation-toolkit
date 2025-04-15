@@ -1,0 +1,20 @@
+
+---
+
+## 🔧 Now generate:
+
+### 1. `pyproject.toml`
+
+```toml
+[project]
+name = "coco-segmentation-toolkit"
+version = "0.1.0"
+description = "Preprocess COCO dataset for multi-class segmentation"
+requires-python = ">=3.8"
+
+[project.dependencies]
+pycocotools = "*"
+pillow = "*"
+tqdm = "*"
+numpy = "*"
+opencv-python = "*"
