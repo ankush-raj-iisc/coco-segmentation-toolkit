@@ -1,0 +1,7 @@
+pycocotools
+numpy
+pillow
+opencv-python
+tqdm
+matplotlib
+jupyter
