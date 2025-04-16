@@ -66,17 +66,36 @@ We wrote a training loop that:
 - Updates model weights
 - Tracks average training loss across all batches
 
+
+### 🔹 Evaluation Metrics for Segmentation
+
+To evaluate the performance of our segmentation model, we implemented standard metrics commonly used in semantic segmentation tasks:
+
+- **Pixel Accuracy**: Measures how many pixels were correctly classified.
+- **Mean IoU (Intersection over Union)**: Measures the overlap between predicted and actual segments, averaged over all classes.
+- **Mean Dice Coefficient**: A similarity score that balances precision and recall, commonly used in medical and dense segmentation tasks.
+
 ---
 
-### 🔹 4. Validation Accuracy Function
+#### 🔹 `compute_metrics()` – Per-Class IoU and Dice Calculation
 
-The evaluation function:
-- Runs in inference mode (no gradients)
-- Predicts the segmentation mask
-- Compares pixel-wise accuracy with ground truth
-- Returns overall validation accuracy %
+This function computes **mean IoU** and **mean Dice coefficient** over all foreground classes (excluding background class `0`):
 
 ---
+
+
+### 🔹 `evaluate()` – Aggregate Metrics on Validation Set
+
+This function evaluates the model on the validation set by computing:
+
+- Total pixel-wise accuracy
+- Mean IoU
+- Mean Dice coefficient
+
+All predictions and masks are aggregated across batches to compute global metrics.
+
+---
+
 
 ### 🔹 5. Train and Evaluate for Multiple Epochs
 
@@ -85,15 +104,19 @@ We recorded training loss and pixel-wise validation accuracy per epoch.
 
 #### 📊 Training Results:
 
-| Epoch | Training Loss | Validation Accuracy |
-|-------|----------------|---------------------|
-| 1     | 2.0013         | 77.31%              |
-| 2     | 1.1461         | 77.59%              |
-| 3     | 1.0024         | 78.71%              |
-| 4     | 0.9008         | 80.39%              |
-| 5     | 0.8183         | 79.90%              |
+- **Pixel Accuracy**: Overall percentage of correctly predicted pixels
+- **Mean IoU**: Average Intersection over Union across all foreground classes
+- **Mean Dice Coefficient**: F1-like score for spatial overlap between predicted and true masks
 
-These results show a consistent decrease in loss and improvement in accuracy, indicating good learning and generalization.
+| Epoch | Training Loss | Pixel Accuracy | Mean IoU | Mean Dice |
+|-------|----------------|----------------|----------|-----------|
+| 1     | 2.0015         | 74.61%         | 1.24%    | 2.01%     |
+| 2     | 1.1503         | 78.02%         | 2.17%    | 3.33%     |
+| 3     | 1.0202         | 78.54%         | 3.34%    | 5.11%     |
+| 4     | 0.9200         | 78.75%         | 4.17%    | 6.41%     |
+| 5     | 0.8329         | 78.65%         | 5.98%    | 9.07%     |
+
+These results indicate that while the pixel accuracy improved steadily, the IoU and Dice scores — which are stricter spatial metrics — also showed meaningful growth across epochs, demonstrating improved segmentation quality.
 
 ---
 
