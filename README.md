@@ -80,12 +80,20 @@ The evaluation function:
 
 ### 🔹 5. Train and Evaluate for Multiple Epochs
 
-The model was trained for **5 epochs** on the full dataset.  
-For each epoch, we printed:
-- Average training loss
-- Pixel-wise validation accuracy
+The model was trained for **5 epochs** on the 1500-image subset.  
+We recorded training loss and pixel-wise validation accuracy per epoch.
 
-This confirmed that the model learns progressively and generalizes well.
+#### 📊 Training Results:
+
+| Epoch | Training Loss | Validation Accuracy |
+|-------|----------------|---------------------|
+| 1     | 2.0013         | 77.31%              |
+| 2     | 1.1461         | 77.59%              |
+| 3     | 1.0024         | 78.71%              |
+| 4     | 0.9008         | 80.39%              |
+| 5     | 0.8183         | 79.90%              |
+
+These results show a consistent decrease in loss and improvement in accuracy, indicating good learning and generalization.
 
 ---
 
@@ -96,18 +104,22 @@ We visualized:
 - The **ground truth mask**
 - The **predicted mask**
 
+Below is a sample output from the model:
+
+![image](https://github.com/user-attachments/assets/a39f093a-e9c7-40f6-8c9d-343c7daace60)
+
 This helped qualitatively verify that the model segments object boundaries and categories correctly.
 
 ---
 
 ## ⏱️ Model Runtime
 
-- Training was performed on a GPU-based notebook environment.
-- **Total training time: ~4.5 hours**, well under the 6-hour constraint.
-- No use of `ultralytics` or external pretrained segmentation APIs. The entire model pipeline is built using **pure PyTorch and torchvision**.
+- Training was performed on a GPU-based notebook environment.  
+- **Total training time: ~4.5 hours**, well under the 6-hour constraint.  
+- No use of `ultralytics` or external pretrained segmentation APIs.  
+- The entire model pipeline is built using **pure PyTorch and torchvision**.
 
 ---
-
 
 
 
